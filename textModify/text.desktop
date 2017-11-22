@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=example
+Comment=My Python Program
+Exec=python /home/pi/Desktop/main.pyc
+Icon=/home/pi/example.png
+Terminal=false
+MultipleArgs=false
+Type=Application
+Categories=Application;Development;
+StartupNotify=true
+Name[zh_CN]=text
