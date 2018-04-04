@@ -1,6 +1,8 @@
 # encoding: utf-8
 import smbus
 import time
+import SerialHelpWrite
+
 #BH1750地址
 __DEV_ADDR=0x23
 
@@ -32,9 +34,22 @@ def getIlluminance():
     return str(res)
 
 # 将数据写入illuminance.csv
-lx=getIlluminace()
-now=time.strftime('%Y-%m-%d %X',time.localtime())
-print lx,now
-f=open('illuminance.csv','a')
-f.write(lx+','+now+'\n')
-time.sleep(60*10) #每十分钟读取一次
+while 1:
+	import threading
+	# "/dev/ttyUSB0" 这个串口路径，写自己实际在用的串口路径
+	ser = SerialHelpWrite.SerialHelper("/dev/ttyUSB0")
+	ser.start()
+	lx=getIlluminance()
+	now = time.strftime('%Y-%m-%d %X',time.localtime())
+	lxstr = str(lx)
+	str_temp = lxstr + " " + now
+	str_length = len(str_temp)
+	print(str_length)
+	for i in range(0, 5):
+		try:
+			ser.write(str_temp[6*i:6*(i+1)])
+		except:
+			pass
+	ser.write("\n")
+	time.sleep(10*60) #每十分钟读取一次
+
