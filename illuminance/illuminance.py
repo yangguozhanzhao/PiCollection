@@ -1,7 +1,7 @@
 # encoding: utf-8
 import smbus
 import time
-import SerialHelpWrite
+import SerialHelp
 
 #BH1750地址
 __DEV_ADDR=0x23
@@ -37,7 +37,7 @@ def getIlluminance():
 while 1:
 	import threading
 	# "/dev/ttyUSB0" 这个串口路径，写自己实际在用的串口路径
-	ser = SerialHelpWrite.SerialHelper("/dev/ttyUSB0")
+	ser = SerialHelp.SerialHelper("/dev/ttyUSB0")
 	ser.start()
 	lx=getIlluminance()
 	now = time.strftime('%Y-%m-%d %X',time.localtime())
@@ -51,5 +51,5 @@ while 1:
 		except:
 			pass
 	ser.write("\n")
-	time.sleep(10*60) #每十分钟读取一次
+	time.sleep(60*10) #每十分钟读取一次
 
